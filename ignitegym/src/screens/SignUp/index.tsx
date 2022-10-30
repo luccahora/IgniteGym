@@ -1,11 +1,19 @@
+import { useNavigation } from "@react-navigation/native";
 import { VStack, Image, Text, Center, Heading, ScrollView } from "native-base";
 import React from "react";
 import BackgroundImg from "@assets/background.png";
 import LogoSvg from "@assets/logo.svg";
 import Input from "@components/Input";
 import Button from "@components/Button";
+import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
 
 const SignUp: React.FC = () => {
+  const navigation = useNavigation();
+
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
+
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}
@@ -14,6 +22,7 @@ const SignUp: React.FC = () => {
       <VStack flex={1} bg="gray.700" px={10} pb={16}>
         <Image
           source={BackgroundImg}
+          defaultSource={BackgroundImg}
           alt="Pessoas treinando"
           resizeMode="contain"
           position="absolute"
@@ -41,7 +50,12 @@ const SignUp: React.FC = () => {
           />
           <Input placeholder="Senha" secureTextEntry />
           <Button title="Criar e acessar" />
-          <Button title="Voltar para o login" variant="outline" mt={24} />
+          <Button
+            title="Voltar para o login"
+            variant="outline"
+            mt={24}
+            onPress={handleGoBack}
+          />
         </Center>
       </VStack>
     </ScrollView>
