@@ -7,15 +7,22 @@ import LogoSvg from "@assets/logo.svg";
 import Input from "@components/Input";
 import Button from "@components/Button";
 
+type FormDataProps = {
+  name: string;
+  email: string;
+  password: string;
+  password_confirm: string;
+};
+
 const SignUp: React.FC = () => {
   const navigation = useNavigation();
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm<FormDataProps>();
 
   const handleGoBack = () => {
     navigation.goBack();
   };
 
-  const handleSignUp = (data: any) => {
+  const handleSignUp = (data: FormDataProps) => {
     console.log(data);
   };
 
