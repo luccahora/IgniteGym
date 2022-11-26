@@ -63,11 +63,16 @@ const SignUp: React.FC = () => {
             control={control}
             name="name"
             render={({ field: { onChange, value } }) => (
-              <Input placeholder="Nome" onChangeText={onChange} value={value} />
+              <Input
+                placeholder="Nome"
+                onChangeText={onChange}
+                value={value}
+                errorMessage={errors.name?.message}
+              />
             )}
             rules={{ required: "Informe o nome" }}
           />
-          <Text color={"white"}>{errors.name?.message}</Text>
+
           <Controller
             control={control}
             name="email"
@@ -78,6 +83,7 @@ const SignUp: React.FC = () => {
                 autoCapitalize="none"
                 onChangeText={onChange}
                 value={value}
+                errorMessage={errors.email?.message}
               />
             )}
             rules={{
@@ -88,7 +94,7 @@ const SignUp: React.FC = () => {
               },
             }}
           />
-          <Text color={"white"}>{errors.email?.message}</Text>
+
           <Controller
             control={control}
             name="password"
@@ -101,6 +107,7 @@ const SignUp: React.FC = () => {
               />
             )}
           />
+
           <Controller
             control={control}
             name="password_confirm"
@@ -112,9 +119,11 @@ const SignUp: React.FC = () => {
                 value={value}
                 onSubmitEditing={handleSubmit(handleSignUp)}
                 returnKeyType="send"
+                isInvalid
               />
             )}
           />
+
           <Button
             title="Criar e acessar"
             onPress={handleSubmit(handleSignUp)}
