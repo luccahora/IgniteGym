@@ -16,7 +16,12 @@ type FormDataProps = {
 
 const SignUp: React.FC = () => {
   const navigation = useNavigation();
-  const { control, handleSubmit } = useForm<FormDataProps>();
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormDataProps>();
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -60,7 +65,9 @@ const SignUp: React.FC = () => {
             render={({ field: { onChange, value } }) => (
               <Input placeholder="Nome" onChangeText={onChange} value={value} />
             )}
+            rules={{ required: "Informe o nome" }}
           />
+          <Text color={"white"}>{errors.name?.message}</Text>
           <Controller
             control={control}
             name="email"
