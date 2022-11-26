@@ -1,11 +1,12 @@
-import { Center, Text } from "native-base";
+import { ScreenHeader } from "@components/ScreenHeader";
+import { Center, Text, VStack } from "native-base";
 import React from "react";
 
 const Profile: React.FC = () => {
   return (
-    <Center flex={1}>
-      <Text>Profile</Text>
-    </Center>
+    <VStack flex={1}>
+      <ScreenHeader title="Perfil" />
+    </VStack>
   );
 };
 
