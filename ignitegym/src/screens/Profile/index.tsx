@@ -1,3 +1,5 @@
+import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system";
 import Button from "@components/Button";
 import Input from "@components/Input";
 import { ScreenHeader } from "@components/ScreenHeader";
@@ -11,8 +13,7 @@ import {
   VStack,
 } from "native-base";
 import React, { useState } from "react";
-import { TouchableOpacity } from "react-native";
-import * as ImagePicker from "expo-image-picker";
+import { Alert, TouchableOpacity } from "react-native";
 
 const PHOTO_SIZE = 33;
 
@@ -37,6 +38,12 @@ const Profile: React.FC = () => {
       }
 
       if (photoSelected.uri) {
+        const photoInfo = await FileSystem.getInfoAsync(photoSelected.uri);
+        if (photoInfo.size && photoInfo.size / 1024 / 1024 > 5) {
+          return Alert.alert(
+            "Essa imagem é muito grande. Escolha uma de até 5MB."
+          );
+        }
         setUserPhoto(photoSelected.uri);
       }
 
