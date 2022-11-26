@@ -119,7 +119,6 @@ const SignUp: React.FC = () => {
                 value={value}
                 onSubmitEditing={handleSubmit(handleSignUp)}
                 returnKeyType="send"
-                isInvalid
               />
             )}
           />
