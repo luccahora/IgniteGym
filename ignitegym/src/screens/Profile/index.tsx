@@ -1,6 +1,15 @@
+import Button from "@components/Button";
+import Input from "@components/Input";
 import { ScreenHeader } from "@components/ScreenHeader";
 import UserPhoto from "@components/UserPhoto";
-import { Center, ScrollView, Skeleton, Text, VStack } from "native-base";
+import {
+  Center,
+  Heading,
+  ScrollView,
+  Skeleton,
+  Text,
+  VStack,
+} from "native-base";
 import React, { useState } from "react";
 import { TouchableOpacity } from "react-native";
 
@@ -12,7 +21,7 @@ const Profile: React.FC = () => {
   return (
     <VStack flex={1}>
       <ScreenHeader title="Perfil" />
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
         <Center mt={6} px={10}>
           {photoIsLoading ? (
             <Skeleton
@@ -40,7 +49,27 @@ const Profile: React.FC = () => {
               Alterar foto
             </Text>
           </TouchableOpacity>
+          <Input placeholder="Nome" bg="gray.600" />
+          <Input placeholder="E-mail" bg="gray.600" isDisabled />
         </Center>
+        <VStack px={10} mt={12} mb={9}>
+          <Heading
+            color="gray.200"
+            fontSize={"md"}
+            fontFamily={"heading"}
+            mb={2}
+          >
+            Alterar senha
+          </Heading>
+          <Input bg={"gray.600"} placeholder="Senha antiga" secureTextEntry />
+          <Input bg={"gray.600"} placeholder="Nova senha" secureTextEntry />
+          <Input
+            bg={"gray.600"}
+            placeholder="Confirme a nova senha"
+            secureTextEntry
+          />
+          <Button title="Atualizar" />
+        </VStack>
       </ScrollView>
     </VStack>
   );
