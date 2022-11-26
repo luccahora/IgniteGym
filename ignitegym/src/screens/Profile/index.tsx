@@ -10,6 +10,7 @@ import {
   ScrollView,
   Skeleton,
   Text,
+  useToast,
   VStack,
 } from "native-base";
 import React, { useState } from "react";
@@ -22,6 +23,8 @@ const Profile: React.FC = () => {
   const [userPhoto, setUserPhoto] = useState(
     "https://github.com/luccahora.png"
   );
+
+  const toast = useToast();
 
   async function handleUserPhotoSelect() {
     setPhotoIsLoading(true);
@@ -40,9 +43,11 @@ const Profile: React.FC = () => {
       if (photoSelected.uri) {
         const photoInfo = await FileSystem.getInfoAsync(photoSelected.uri);
         if (photoInfo.size && photoInfo.size / 1024 / 1024 > 5) {
-          return Alert.alert(
-            "Essa imagem é muito grande. Escolha uma de até 5MB."
-          );
+          return toast.show({
+            title: "Essa imagem é muito grande. Escolha uma de até 5MB.",
+            placement: "top",
+            bgColor: "red.500",
+          });
         }
         setUserPhoto(photoSelected.uri);
       }
