@@ -42,8 +42,8 @@ const SignUp: React.FC = () => {
     navigation.goBack();
   };
 
-  const handleSignUp = ({ name, email, password }: FormDataProps) => {
-    fetch("http://192.168.1.7:3333/users", {
+  async function handleSignUp({ name, email, password }: FormDataProps) {
+    const response = await fetch("http://192.168.1.4:3333/users", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -51,7 +51,9 @@ const SignUp: React.FC = () => {
       },
       body: JSON.stringify({ name, email, password }),
     });
-  };
+    const data = await response.json();
+    console.log(data);
+  }
 
   return (
     <ScrollView
