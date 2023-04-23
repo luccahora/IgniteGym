@@ -6,13 +6,32 @@ import LogoSvg from "@assets/logo.svg";
 import Input from "@components/Input";
 import Button from "@components/Button";
 import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
+import { useAuth } from "@hooks/useAuth";
+import { Controller, set, useForm } from "react-hook-form";
+
+type FormData = {
+  email: string;
+  password: string;
+};
 
 const SignIn: React.FC = () => {
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
 
-  const handleNewAccount = () => {
+  const { signIn } = useAuth();
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  function handleNewAccount() {
     navigation.navigate("signUp");
-  };
+  }
+
+  function handleSignIn({ email, password }: FormData) {
+    signIn(email, password);
+  }
 
   return (
     <ScrollView
@@ -42,13 +61,36 @@ const SignIn: React.FC = () => {
           >
             Acesse sua conta
           </Heading>
-          <Input
-            placeholder="E-mail"
-            keyboardType="email-address"
-            autoCapitalize="none"
+          <Controller
+            control={control}
+            name="email"
+            rules={{ required: "Informe o e-mail" }}
+            render={({ field: { onChange } }) => (
+              <Input
+                placeholder="E-mail"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                onChangeText={onChange}
+                errorMessage={errors.email?.message}
+              />
+            )}
           />
-          <Input placeholder="Senha" secureTextEntry />
-          <Button title="Acessar" />
+
+          <Controller
+            control={control}
+            name="password"
+            rules={{ required: "Informe a senha" }}
+            render={({ field: { onChange } }) => (
+              <Input
+                placeholder="Senha"
+                secureTextEntry
+                onChangeText={onChange}
+                errorMessage={errors.password?.message}
+              />
+            )}
+          />
+
+          <Button title="Acessar" onPress={handleSubmit(handleSignIn)} />
         </Center>
         <Center mt={24}>
           <Text color={"gray.100"} fontSize="sm" mb={3} fontFamily={"body"}>

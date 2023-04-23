@@ -3,11 +3,13 @@ import { Box, useTheme } from "native-base";
 import { AuthRoutes } from "./auth.routes";
 import { useContext } from "react";
 import { AuthContext } from "@contexts/AuthContext";
+import { useAuth } from "@hooks/useAuth";
 
 export function Routes() {
   const { colors } = useTheme();
+  const { user } = useAuth();
 
-  const contextData = useContext(AuthContext);
+  console.log("logado", user);
 
   const theme = DefaultTheme;
   theme.colors.background = colors.gray[700];
