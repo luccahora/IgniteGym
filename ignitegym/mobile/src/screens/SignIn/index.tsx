@@ -29,8 +29,8 @@ const SignIn: React.FC = () => {
     navigation.navigate("signUp");
   }
 
-  function handleSignIn({ email, password }: FormData) {
-    signIn(email, password);
+  async function handleSignIn({ email, password }: FormData) {
+    await signIn(email, password);
   }
 
   return (
